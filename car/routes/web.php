@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,4 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('carAdmin')->name('carAdmin')->group(function(){
+
+    Route::middleware('auth')->group(function (){
+
+        Route::get('/', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('home');
+
+    });
+
+});
