@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function get_user_info(){
+        return  $this->email . ' - ' .  $this->phone;
+    }
+
 }

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Model\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +27,25 @@ Route::prefix('carAdmin')->name('carAdmin')->group(function(){
 
     Route::middleware('auth')->group(function (){
 
-        Route::get('/', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('home');
+        Route::get('/', [HomeController::class, 'dashboard'])->name('home');
+
+        Route::prefix('users')->name('users')->group(function(){
+            Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('/factory', function() {
+               \App\Models\User::factory()->count(10)->create();
+               return 'success';
+            });
+            
+        });
+
+        Route::prefix('cars')->name('cars')->group(function(){
+            Route::get('/', [UserController::class, 'index'])->name('index');
+            
+        });
+
+       
+
+
 
     });
 
