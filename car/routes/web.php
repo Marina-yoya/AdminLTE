@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,8 @@ Route::prefix('carAdmin')->name('carAdmin')->group(function(){
 
         Route::prefix('users')->name('users')->group(function(){
             Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('/create', [UserController::class, 'create'])->name('create');
+                   Route::post('/create', [UserController::class, 'store'])->name('store');
             Route::get('/factory', function() {
                \App\Models\User::factory()->count(10)->create();
                return 'success';
