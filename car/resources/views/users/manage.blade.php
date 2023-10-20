@@ -1,67 +1,65 @@
 @extends('adminlte::page')
 
-@section('title', 'Manage Users')
+@section('title', $user ? 'Edit User' : 'Create User')
 
 @section('content_header')
-    <h1>Manage Users</h1>
-@stop
+    
+</section>
 
 @section('content')
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Manage User</h3>
+                <h3 class="card-title">{{ $user ? 'Edit User' : 'Create User' }}</h3>
             </div>
-                   <div class="card-body">
-                    <form @if($user) method="POST" action="{{ route('carAdmin.users.update', $user->id) }}" @else method="POST" action="{{ route('carAdmin.users.store') }}" @endif class="userForm">
-                        @csrf
-                        @if($user)
-                            @method('PUT')
-                        @endif
+            <div class="card-body">
+                <form method="POST" action="{{ $user ? route('carAdmin.users.update', $user->id) : route('carAdmin.users.store') }}" class="userForm">
                     @csrf
+                    @if($user)
+                        @method('PUT')
+                    @endif
 
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{$user->name}}">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ $user ? $user->name : "" }}">
                             @error('name')
-                            <div class="alert alert-danger"> {{$message}} </div>
+                            <div class="alert alert-danger"> {{ $message }} </div>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{$user->email}}">
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{ $user ? $user->email : "" }}">
                             @error('email')
-                            <div class="alert alert-danger"> {{$message}} </div>
+                            <div class="alert alert-danger"> {{ $message }} </div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="pnone">Pnone</label>
-                            <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{$user->phone}}">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{ $user ? $user->phone : "" }}">
                             @error('phone')
-                            <div class="alert alert-danger"> {{$message}} </div>
+                            <div class="alert alert-danger"> {{ $message }} </div>
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="text" class="form-control @error('phone') is-invalid @enderror" name="password" id="password">
-                            @error('password')
-                            <div class="alert alert-danger"> {{$message}} </div>
-                            @enderror
-                        </div>
-
+                        @if (!$user) 
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
+                                @error('password')
+                                <div class="alert alert-danger"> {{ $message }} </div>
+                                @enderror
+                            </div>
+                        @endif
                     </div>
-                    <input type="submit" value="Save">
+                    <input type="submit" value="{{ $user ? 'Save' : 'Create User' }}">
                 </form>
             </div>
         </div>
     </div>
-    
 @stop
-
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">

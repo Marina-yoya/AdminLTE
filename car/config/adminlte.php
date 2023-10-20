@@ -319,6 +319,13 @@ return [
             'label_color' => 'success',
         ],
         [
+            'text'        => 'Create User',
+            'url'         => 'carAdmin/users/create',
+            'icon'        => 'far fa-fw fa-file',
+            'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
             'text'        => 'Cars',
             'url'         => 'carAdmin/cars',
             'icon'        => 'far fa-fw fa-file',

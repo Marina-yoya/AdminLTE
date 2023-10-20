@@ -18,7 +18,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.manage');
+       
+        return view('users.manage', ['user' => null]);
     }
 
     public function store(Request $request)
