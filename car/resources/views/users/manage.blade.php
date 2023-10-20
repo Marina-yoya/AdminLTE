@@ -12,15 +12,18 @@
             <div class="card-header">
                 <h3 class="card-title">Manage User</h3>
             </div>
-            <div class="card-body">
-                <form method="POST" class="userForm">
-                   
+                   <div class="card-body">
+                    <form @if($user) method="POST" action="{{ route('carAdmin.users.update', $user->id) }}" @else method="POST" action="{{ route('carAdmin.users.store') }}" @endif class="userForm">
+                        @csrf
+                        @if($user)
+                            @method('PUT')
+                        @endif
                     @csrf
 
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{$user->name}}">
                             @error('name')
                             <div class="alert alert-danger"> {{$message}} </div>
                             @enderror
@@ -28,7 +31,7 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" id="email" value="{{$user->email}}">
                             @error('email')
                             <div class="alert alert-danger"> {{$message}} </div>
                             @enderror
@@ -36,7 +39,7 @@
 
                         <div class="form-group">
                             <label for="pnone">Pnone</label>
-                            <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone">
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" id="phone" value="{{$user->phone}}">
                             @error('phone')
                             <div class="alert alert-danger"> {{$message}} </div>
                             @enderror

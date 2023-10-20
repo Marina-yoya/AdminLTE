@@ -24,22 +24,26 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('carAdmin')->name('carAdmin')->group(function () {
+Route::prefix('carAdmin')->name('carAdmin.')->group(function () {
 
     Route::middleware('auth')->group(function () {
 
         Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
-        Route::prefix('users')->name('users')->group(function () {
+        Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::get('/create', [UserController::class, 'create'])->name('create');
             Route::post('/create', [UserController::class, 'store'])->name('store');
 
-            Route::get('/delete/{id}', [UserController::class, 'delete'])->name('carAdmin.users.delete');
+            Route::get('/{id}/edit',  [UserController::class, 'edit'])->name('edit');
+             Route::put('/{id}',  [UserController::class, 'update'])->name('update');
+
+
+            Route::get('/delete/{id}', [UserController::class, 'delete'])->name('delete');
 
 
             Route::get('/factory', function () {
-                \App\Models\User::factory()->count(10)->create();
+                \App\Models\User::factory()->count(30)->create();
                 return 'success';
             });
 

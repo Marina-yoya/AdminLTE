@@ -8,6 +8,11 @@
 
 @section('content')
     <p>Users List</p>
+    @if($message = Session::get('success'))
+    <div class="alert alert-success">
+        {{$message}}
+    </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
 
@@ -39,15 +44,10 @@
                                
                                     <td>
                                         <a href="{{ route('carAdmin.users.delete', $user->id) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('carAdmin.users.edit', $user->id) }}" class="btn btn-primary">Update</a>
                                     </td>
                                     
-                                    <td>
-                                     
-                                        {{-- <a href="{{ route('users.deleteUser', $user->id) }}" class="btn btn-danger">Delete</a> --}}
-                                        {{-- <a href="{{ route('delete', ['id' => $user->id]) }}" class="delete-button">Delete</a> --}}
-                                        {{-- <a href="{{ route('carAdmin.users.deleteUser', ['id' => $user->id]) }}" class="delete-button">Delete</a> --}}
-
-                                    </td>
+                        
                                     
                                 </tr>
                                 @endforeach

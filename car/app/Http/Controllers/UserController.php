@@ -21,50 +21,76 @@ class UserController extends Controller
         return view('users.manage');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // dd($request-> all());
 
         $request->validate([
-            'name'=> 'required',
-            'email'=> 'required|unique:users,email',
-            'phone'=> 'required|unique:users,phone',
-            'password'=> 'required|min:6',
-            
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'phone' => 'required|unique:users,phone',
+            'password' => 'required|min:6',
+
         ]);
 
-      $user = new User();
-      $user->name = $request->name;
-      $user->phone = $request->phone;
-      $user->email = strtolower($request->email);
-      $user->password = bcrypt($request->password);
-      $user->save();
+        $user = new User();
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->email = strtolower($request->email);
+        $user->password = bcrypt($request->password);
+        $user->save();
 
-    
-    //   return redirect()->route('carAdmin.users.index')->with('success', 'User created successfully');
-    return redirect('/carAdmin/users');
-      
+
+        return redirect()->route('carAdmin.users.index')->with('success', 'User created successfully');
+        // return redirect('/carAdmin/users');
+
     }
-    
+
 
 
     public function edit($id)
-{
-    $user = User::find($id);
-    return view('users.edit', ['user' => $user]);
-}
+    {
+        $user = User::find($id);
+        return view('users.manage', ['user' => $user]);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+
+
+        $user = User::find($id);
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . $user->id,
+            'phone' => 'required|unique:users,phone,' . $user->id,
+
+        ]);
+
+        $user->name = $request->name;
+        $user->phone = $request->phone;
+        $user->email = strtolower($request->email);
+
+        $user->save();
+
+        return redirect()->route('carAdmin.users.index')->with('success', 'User updated successfully');
+
+    }
 
 
 
 
-public function delete($id)
-{
-    $user = User::find($id);
-    $user->delete();
 
-    return redirect()->route('carAdmin.users.index')->with('success', 'User deleted successfully');
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
 
-    
-}
+        return redirect()->route('carAdmin.users.index')->with('success', 'User deleted successfully');
+
+
+    }
 
 
 
