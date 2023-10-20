@@ -44,6 +44,28 @@ class UserController extends Controller
     return redirect('/carAdmin/users');
       
     }
+    
+
+
+    public function edit($id)
+{
+    $user = User::find($id);
+    return view('users.edit', ['user' => $user]);
+}
+
+
+
+
+public function delete($id)
+{
+    $user = User::find($id);
+    $user->delete();
+
+    return redirect()->route('carAdmin.users.index')->with('success', 'User deleted successfully');
+
+    
+}
+
 
 
 }

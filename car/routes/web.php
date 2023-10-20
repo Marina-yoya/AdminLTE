@@ -1,10 +1,10 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Model\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,31 +22,35 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('carAdmin')->name('carAdmin')->group(function(){
+Route::prefix('carAdmin')->name('carAdmin')->group(function () {
 
-    Route::middleware('auth')->group(function (){
+    Route::middleware('auth')->group(function () {
 
         Route::get('/', [HomeController::class, 'dashboard'])->name('home');
 
-        Route::prefix('users')->name('users')->group(function(){
+        Route::prefix('users')->name('users')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::get('/create', [UserController::class, 'create'])->name('create');
-                   Route::post('/create', [UserController::class, 'store'])->name('store');
-            Route::get('/factory', function() {
-               \App\Models\User::factory()->count(10)->create();
-               return 'success';
+            Route::post('/create', [UserController::class, 'store'])->name('store');
+
+            Route::get('/delete/{id}', [UserController::class, 'delete'])->name('carAdmin.users.delete');
+
+
+            Route::get('/factory', function () {
+                \App\Models\User::factory()->count(10)->create();
+                return 'success';
             });
-            
+
         });
 
-        Route::prefix('cars')->name('cars')->group(function(){
+        Route::prefix('cars')->name('cars')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
-            
+
         });
 
-       
+
 
 
 
