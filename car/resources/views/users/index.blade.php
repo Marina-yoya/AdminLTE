@@ -30,6 +30,7 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Info</th>
+                                    <th>Cars</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -41,6 +42,11 @@
                                     <td>{{$user->id}}</td>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->get_user_info()}}</td>
+                                    <td>
+                                        @foreach ($user->cars as $car)
+                                            {{ $car->make }} - {{ $car->model }} - {{ $car->color }}<br>
+                                        @endforeach
+                                    </td>
                                
                                     <td>
                                         <a href="{{ route('carAdmin.users.delete', $user->id) }}" class="btn btn-danger">Delete</a>

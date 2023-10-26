@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Car extends Model
 {
     protected $fillable = ['make', 'model', 'color'];
+
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+
+
+
 }

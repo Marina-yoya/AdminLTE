@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -16,7 +17,9 @@ class CarController extends Controller
 
     public function create()
     {
-        return view('cars.manage', ['car' => null]);
+        $users = User::all();
+        return view('cars.manage', ['car' => null, 'users' => $users]);
+        // return view('cars.manage', ['car' => null]);
     }
 
     public function store(Request $request)
@@ -25,12 +28,14 @@ class CarController extends Controller
             'make' => 'required',
             'model' => 'required',
             'color' => 'required',
+            'user_id' => 'required',
         ]);
 
         $car = new Car();
         $car->make = $request->make;
         $car->model = $request->model;
         $car->color = $request->color;
+        $car->user_id = $request->user_id;
         $car->save();
 
         return redirect()->route('carAdmin.cars.index')->with('success', 'Car created successfully');

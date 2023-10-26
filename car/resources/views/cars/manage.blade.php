@@ -43,6 +43,14 @@
                             <div class="alert alert-danger"> {{ $message }} </div>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="user_id">Owner</label>
+                            <select class="form-control" name="user_id" id="user_id">
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <input type="submit" value="{{ $car ? 'Save' : 'Create Car' }}">
                 </form>

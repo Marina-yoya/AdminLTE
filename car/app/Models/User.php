@@ -44,8 +44,18 @@ class User extends Authenticatable
     ];
 
 
-    public function get_user_info(){
-        return  $this->email . ' - ' .  $this->phone;
+    public function get_user_info()
+    {
+        return $this->email . ' - ' . $this->phone;
     }
+
+
+
+
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
+
 
 }

@@ -31,6 +31,7 @@
                                     <th>Make</th>
                                     <th>Model</th>
                                     <th>Color</th>
+                                    <th>Owner</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -42,6 +43,7 @@
                                     <td>{{ $car->make }}</td>
                                     <td>{{ $car->model }}</td>
                                     <td>{{ $car->color }}</td>
+                                    <td>{{ optional($car->user)->name }}</td>
                                     <td>
                                         <a href="{{ route('carAdmin.cars.delete', $car->id) }}" class="btn btn-danger">Delete</a>
                                         <a href="{{ route('carAdmin.cars.edit', $car->id) }}" class="btn btn-primary">Update</a>
