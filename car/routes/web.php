@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CarController;
 use App\Model\User;
 
 /*
@@ -49,9 +50,15 @@ Route::prefix('carAdmin')->name('carAdmin.')->group(function () {
 
         });
 
-        Route::prefix('cars')->name('cars')->group(function () {
-            Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::prefix('cars')->name('cars.')->group(function () {
+            Route::get('/', [CarController::class, 'index'])->name('index');
+            Route::get('/create', [CarController::class, 'create'])->name('create'); 
+            Route::post('/create', [CarController::class, 'store'])->name('store'); 
+            Route::get('/{id}/edit',  [CarController::class, 'edit'])->name('edit');
+            Route::put('/{id}',  [CarController::class, 'update'])->name('update');
 
+
+           Route::get('/delete/{id}', [CarController::class, 'delete'])->name('delete');
         });
 
 
